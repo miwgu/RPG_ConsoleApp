@@ -257,38 +257,69 @@ class HeroTest {
         Weapon test_staff = new Weapon("TestStaff",1, WEAPON, STAFFS,10);
         mage.equipWeapon(test_staff);
         double expected_damage =10*(1+(8/100));
-        assertEquals("Miwa",mage.getName());
-        assertEquals(MAGE,mage.getHeroClass());
-        assertEquals(1,mage.getLevel());
-        assertEquals(1,mage.totalHeroAttribute.getStrength());
-        assertEquals(1,mage.totalHeroAttribute.getDexterity());
-        assertEquals(8,mage.totalHeroAttribute.getIntelligence());
-        assertEquals(expected_damage,mage.damage());
+        StringBuilder expected_mage = new StringBuilder();
+        expected_mage.append("----------------------------------------\n");
+        expected_mage.append("Name: Miwa"+"\n");
+        expected_mage.append("Class: "+MAGE+ "\n");
+        expected_mage.append("Level: 1"+ "\n");
+        expected_mage.append("Total strength: 1"+"\n");
+        expected_mage.append("Total dexterity: 1"+"\n");
+        expected_mage.append("Total intelligence: 8"+"\n");
+        expected_mage.append("Damage: "+expected_damage+"\n");
+        expected_mage.append("----------------------------------------\n");
 
-        assertEquals("Reiko",ranger.getName());
-        assertEquals(RANGER,ranger.getHeroClass());
-        assertEquals(1,ranger.getLevel());
-        assertEquals(1,ranger.totalHeroAttribute.getStrength());
-        assertEquals(7,ranger.totalHeroAttribute.getDexterity());
-        assertEquals(1,ranger.totalHeroAttribute.getIntelligence());
-        assertEquals(1.0,ranger.damage());
+        String actual_mage = String.valueOf(mage.display());
 
-        assertEquals("Mika",rogue.getName());
-        assertEquals(ROGUE,rogue.getHeroClass());
-        assertEquals(1,rogue.getLevel());
-        assertEquals(2,rogue.totalHeroAttribute.getStrength());
-        assertEquals(6,rogue.totalHeroAttribute.getDexterity());
-        assertEquals(1,rogue.totalHeroAttribute.getIntelligence());
-        assertEquals(1.0,rogue.damage());
+        assertEquals(expected_mage.toString(), actual_mage);
+
+
+        StringBuilder expected_ranger = new StringBuilder();
+        expected_ranger.append("----------------------------------------\n");
+        expected_ranger.append("Name: Reiko"+"\n");
+        expected_ranger.append("Class: "+RANGER+ "\n");
+        expected_ranger.append("Level: 1"+ "\n");
+        expected_ranger.append("Total strength: 1"+"\n");
+        expected_ranger.append("Total dexterity: 7"+"\n");
+        expected_ranger.append("Total intelligence: 1"+"\n");
+        expected_ranger.append("Damage: "+1.0+"\n");
+        expected_ranger.append("----------------------------------------\n");
+
+        String actual_ranger= String.valueOf(ranger.display());
+
+        assertEquals(expected_ranger.toString(), actual_ranger);
+
+
+        StringBuilder expected_rouge = new StringBuilder();
+        expected_rouge.append("----------------------------------------\n");
+        expected_rouge.append("Name: Mika"+"\n");
+        expected_rouge.append("Class: "+ROGUE+ "\n");
+        expected_rouge.append("Level: 1"+ "\n");
+        expected_rouge.append("Total strength: 2"+"\n");
+        expected_rouge.append("Total dexterity: 6"+"\n");
+        expected_rouge.append("Total intelligence: 1"+"\n");
+        expected_rouge.append("Damage: "+1.0+"\n");
+        expected_rouge.append("----------------------------------------\n");
+
+        String actual_rouge= String.valueOf(rogue.display());
+
+        assertEquals(expected_rouge.toString(), actual_rouge);
+
+
 
         warrior.levelUp();
-        assertEquals("Chiyo",warrior.getName());
-        assertEquals(WARRIOR,warrior.getHeroClass());
-        assertEquals(2,warrior.getLevel());
-        assertEquals(5+3,warrior.totalHeroAttribute.getStrength());
-        assertEquals(2+2,warrior.totalHeroAttribute.getDexterity());
-        assertEquals(1+1,warrior.totalHeroAttribute.getIntelligence());
-        assertEquals(1.0,warrior.damage());
+        StringBuilder expected_warrior = new StringBuilder();
+        expected_warrior.append("----------------------------------------\n");
+        expected_warrior.append("Name: Chiyo"+"\n");
+        expected_warrior.append("Class: "+WARRIOR+ "\n");
+        expected_warrior.append("Level: 2"+ "\n");
+        expected_warrior.append("Total strength: 8"+"\n");
+        expected_warrior.append("Total dexterity: 4"+"\n");
+        expected_warrior.append("Total intelligence: 2"+"\n");
+        expected_warrior.append("Damage: "+1.0+"\n");
+        expected_warrior.append("----------------------------------------\n");
+
+        String actual_warrior= String.valueOf(warrior.display());
+        assertEquals(expected_warrior.toString(), actual_warrior);
 
 
 

@@ -160,11 +160,11 @@ public abstract class Hero {
         return sb.append("----------------------------------------\n")
                 .append("Name: " + this.getName()+"\n")
                 .append("Class: " + this.getHeroClass()+"\n")
-                .append("Level:" + this.getLevel()+"\n")
-                .append("Total strength:" + this.totalHeroAttribute.getStrength()+"\n")
-                .append("Total dexterity:" + this.totalHeroAttribute.getDexterity()+ "\n")
-                .append("Total intelligence:" + this.totalHeroAttribute.getIntelligence()+ "\n")
-                .append("Damage:" + this.damage()+ "\n")
+                .append("Level: " + this.getLevel()+"\n")
+                .append("Total strength: " + this.totalHeroAttribute.getStrength()+"\n")
+                .append("Total dexterity: " + this.totalHeroAttribute.getDexterity()+ "\n")
+                .append("Total intelligence: " + this.totalHeroAttribute.getIntelligence()+ "\n")
+                .append("Damage: " + this.damage()+ "\n")
                 .append("----------------------------------------\n");
     }
 
