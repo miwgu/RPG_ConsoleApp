@@ -1,17 +1,24 @@
-image: maven:3.5.3
+  image: maven:latest
 
-cache:
-  paths:
-    - .m2/repository/
-    - target/
+  stages:
+    - build
+    - test
 
-build:
-  stage: build
-  script:
-    - mvn -f project/pom.xml compile
+  build:
+    stage: build
+    script:
+      - mvn clean install
 
+  test:
+    stage: test
+    script:
+      - mvn verify
+      - mvn clean compile test
 
-test:
-  stage: test
-  script:
-    - mvn -f project/pom.xml test
+  artifacts:
+    paths:
+      - target/surefire-reports/TEST-*.xml
+    when: always
+    reports:
+      junit:
+        - target/surefire-reports/TEST-*.xml
