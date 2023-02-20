@@ -7,9 +7,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.Map;
 
+import static model.equipment.ArmorType.MAIL;
 import static model.equipment.ArmorType.PLATE;
-import static model.equipment.Slot.BODY;
-import static model.equipment.Slot.WEAPON;
+import static model.equipment.Slot.*;
 import static model.equipment.WeaponType.*;
 import static model.heros.HeroClass.*;
 import static org.junit.jupiter.api.Assertions.*;
@@ -215,7 +215,7 @@ class HeroTest {
         int actual_mage_total=mage.calTotalAttribute();
         assertEquals(expected_noEquipment, actual_mage_total);
 
-/*
+
         Armor test_PlateChest = new Armor("TestPlateChest", 1, BODY, PLATE, new HeroAttribute(1,0,0));
         int expected_oneArmor=5+2+1 +1+0+0;
         warrior.equipArmor(test_PlateChest);
@@ -223,7 +223,20 @@ class HeroTest {
         int actual_warrior_total=warrior.calTotalAttribute();
         assertEquals(expected_oneArmor, actual_warrior_total);
 
- */
+        Armor test_Mail= new Armor("TestCommonMail",1, HEAD,MAIL, new HeroAttribute(0,1,2));
+        int expected_twoArmor=5+2+1 +(1+0+0) +(0+1+2);
+        warrior.equipArmor(test_Mail);
+
+
+        int actual_warrior_2Armor= warrior.calTotalAttribute();
+        assertEquals(expected_twoArmor, actual_warrior_2Armor);
+
+        Armor test_replaceMail= new Armor("TestReplaceMail",1, HEAD,MAIL, new HeroAttribute(3,1,2));
+        int expected_replaceArmor=5+2+1 +(1+0+0) +(3+1+2);
+        assertEquals(expected_replaceArmor, expected_replaceArmor);
+
+
+
     }
 
     @Test

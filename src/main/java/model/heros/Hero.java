@@ -126,33 +126,16 @@ public abstract class Hero {
          this.totalHeroAttribute = new HeroAttribute(0,0,0);
          int sum_totalLevelAttributes=this.totalHeroAttribute.totalLevelAttributes(new HeroAttribute(baseHeroAttribute.getDexterity(), baseHeroAttribute.getStrength(), baseHeroAttribute.getIntelligence()));
 
-         // need to add Sum of ArmorAttribute for all Armor in Equipment
-        final int[] armorAttribute = {0};
-        this.equipment.forEach((slot, item) -> {
-            Item i = new Armor();
+        int calArmorAttributes = getEquipment().values()
+                                        .stream().filter(Armor.class::isInstance)
+                                        .map(Armor.class::cast)
+                                        .mapToInt
+                                                (armor -> (armor.getArmorAttribute().getStrength()
+                                                        +  armor.getArmorAttribute().getDexterity()
+                                                        +  armor.getArmorAttribute().getIntelligence()))
+                                                           .reduce(0, Integer::sum);
 
-            Armor armor = (Armor) i;
-            //Armor armor = (Armor) item;
-            //Weapon weapon = (Weapon) item;
-            //Item armor =(Item)item;
-            //HeroAttribute attribute = (Armor) item.getArmorAttribute();
-            //HeroAttribute itemattribute = item.getArmorAttribute();
-            /*if (item == null) {
-                if(slot== Slot.WEAPON){
-                    armorAttribute[0]=0;//return;// Not ARMOR (HEAD,LEGS,BODY) The rest of the code won't be executed
-                }
-                armorAttribute[0]=0;//return;
-            }
-
-             */
-            if(slot== Slot.WEAPON || item == null){
-                return;
-            } ;
-
-            armorAttribute[0]=armor.getArmorAttribute().getTotalAttributes();
-        });
-
-        return sum_totalLevelAttributes + armorAttribute[0];
+        return sum_totalLevelAttributes + calArmorAttributes;
     }
 
     public StringBuilder display() {

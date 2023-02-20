@@ -169,7 +169,3 @@ Unit testing is to verify the behavior of Heroes. This is how the assignment is 
 method, only a test suite needs to be run. The tests should cover all the public facing methods of the Heroes as well as
 any functionality used in those processes.
 
-
-## Need to fix
-
-Calculating total attributes does not work just now. I notice it when I go throw testings.
