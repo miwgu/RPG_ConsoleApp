@@ -1,24 +1,21 @@
-  image: maven:latest
+image: maven:latest
+stages:
+  - build
+  - test
 
-  stages:
-    - build
-    - test
+build:
+  stage: build
+  script:
+    - mvn clean install
 
-  build:
-    stage: build
-    script:
-      - mvn clean install
-
-  test:
-    stage: test
-    script:
-      - mvn verify
-      - mvn clean compile test
-
+test:
+  stage: test
+  script:
+    - mvn verify
+    - mvn clean compile test
   artifacts:
     paths:
       - target/surefire-reports/TEST-*.xml
-    when: always
     reports:
       junit:
         - target/surefire-reports/TEST-*.xml
