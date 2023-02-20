@@ -210,17 +210,20 @@ class HeroTest {
 
 
     @Test
-    void totalAttributeTest()  {
+    void totalAttributeTest() throws InvalidArmorException, InvalidLevelException {
         int expected_noEquipment=1+1+8;
         int actual_mage_total=mage.calTotalAttribute();
         assertEquals(expected_noEquipment, actual_mage_total);
 
-        /*
+/*
         Armor test_PlateChest = new Armor("TestPlateChest", 1, BODY, PLATE, new HeroAttribute(1,0,0));
         int expected_oneArmor=5+2+1 +1+0+0;
         warrior.equipArmor(test_PlateChest);
+
         int actual_warrior_total=warrior.calTotalAttribute();
-        assertEquals(expected_oneArmor, actual_warrior_total);*/
+        assertEquals(expected_oneArmor, actual_warrior_total);
+
+ */
     }
 
     @Test
