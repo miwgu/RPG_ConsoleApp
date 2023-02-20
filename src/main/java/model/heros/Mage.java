@@ -2,9 +2,6 @@ package model.heros;
 
 import model.equipment.*;
 
-import java.util.HashMap;
-import java.util.Map;
-
 public class Mage extends Hero{
 
 
@@ -18,31 +15,9 @@ public class Mage extends Hero{
     @Override
     public HeroAttribute levelUp() {
         this.gainLevel();
-        return this.baseHeroAttribute.levelAttributes(new HeroAttribute(1,1,5));
+        return this.totalHeroAttribute.levelAttributes(new HeroAttribute(1,1,5));
     }
 
-    /*
-    @Override
-    public void equip(Slot slot, Weapon weapon) {
-        if (getLevel() >= weapon.getRequiredLevel() && getValidWeaponTypes().contains(weapon.getWeaponType())) {
-            equipment.put(slot, weapon);
-            setEquipment(equipment);    }
-
-    }
-
-    @Override
-    public boolean equip(Slot slot, Armor armor) {
-
-        if (getLevel() >= armor.getRequiredLevel() && getValidArmorTypes().contains(armor.getArmorType())) {
-            equipment.put(slot, armor);
-            setEquipment(equipment);        }
-        return false;
-    }
-
-     */
-
-
-    //Hero damage = WeaponDamage * (1 + DamagingAttribute/100)
     @Override
     public double damage() {
 
@@ -55,5 +30,6 @@ public class Mage extends Hero{
 
         return  weaponDamage * (1+ this.totalHeroAttribute.getIntelligence()/100);
     }
+
 
 }

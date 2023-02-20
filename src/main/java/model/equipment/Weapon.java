@@ -1,6 +1,5 @@
 package model.equipment;
 
-import model.equipment.Item;
 
 public class Weapon extends Item {
 
@@ -23,5 +22,6 @@ public class Weapon extends Item {
     public double getWeaponDamage() {
         return weaponDamage;
     }
+
 
 }

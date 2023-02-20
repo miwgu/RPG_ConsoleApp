@@ -19,7 +19,7 @@ public class Ranger extends Hero {
     @Override
     public HeroAttribute levelUp() {
         this.level++;
-        this.baseHeroAttribute.levelAttributes( new HeroAttribute(1,5,1));
+        this.totalHeroAttribute.levelAttributes( new HeroAttribute(1,5,1));
         return null;
     }
 
@@ -57,4 +57,10 @@ public class Ranger extends Hero {
 
         return weaponDamage * (1+ this.totalHeroAttribute.getDexterity()/100);
     }
+
+    @Override
+    public String toString() {
+        return super.toString();
+    }
+
 }

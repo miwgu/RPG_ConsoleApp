@@ -1,92 +1,175 @@
-# RPG_ConsoleApp
+## -Assigment 1_Java -Build a console application in Java-
 
+Create a Maven application in Java
 
+## -requirement-
 
-## Getting started
+• Install at least IntelliJ Ultimate with JDK 17
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
+• Use plain Java to create a console application
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/miwag1/rpg_consoleapp.git
-git branch -M main
-git push -uf origin main
+ -Various hero classes having attributes which increase at different rates as the character gains levels.
+ -Equipment, such as armor and weapons, that characters can equip. The equipped items will alter the power of 
+  the hero, causing it to deal more damage and be able to survive longer. Certain heroes can equip certain item 
+  types.
+ -Custom exceptions. There are two custom exceptions you are required to write
+ -Testing of the main functionality
 ```
 
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://gitlab.com/miwag1/rpg_consoleapp/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
 
 ## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+### Hero Class
+1) Overview
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+In the game there are currently four classes that a hero can be:
+``` 
+• Mage • Ranger • Rogue • Warrior
+```
+Each hero has the following shared fields:
+```
+• Name
+• Level - all heroes start at level 1
+• LevelAttribtues - total from all levels
+• Equipment - holds currently equipped items
+• ValidWeaponTypes – a list of weapon types a hero can equip based on their subclass
+• ValidArmorTypes - a list of armor types a hero can equip based on their subclass
+```
+Heroes have the following public facing methods:
+```
+• Constructor – each hero is created by passing just a name.
+• LevelUp – increases the level of a character by 1 and increases their LevelAttributes
+• Equip – two variants, for equipping armor and weapons
+• Damage – damage is calculated on the fly and not stored
+• TotalAttributes – calculated on the fly and not stored
+• Display – details of Hero to be displayed
+```
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+2) Hero attributes
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+```
+• Strength – determines the physical strength of the character.
+• Dexterity – determines the characters ability to attack with speed and nimbleness.
+• Intelligence – determines the characters affinity with magic.
+```
+3) Levelling attributes
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+```
+There should be a base abstract Hero class to encapsulate all the shared functionality (fields and methods)
+Each sub class will start at different attributes and increase at different rates when levelling up.
+```
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+###  Items and equipment
+1) Overview
+   
+   Heroes can equip various items. The two types of items are: Weapon and Armor.
+   
+   There should be a parent Item abstract class which is inherited by the above-mentioned types.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+   They cannot equip the item if a hero is below the RequiredLevel,
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+```
+• Name
+• RequiredLevel
+• Slot
+```
+   Each item is equipped in a specific Slot.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+```
+• Weapon
+• Head
+• Body
+• Legs
+```
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+2)  Weapons
+    Encapsulate these types in a WeaponType enumerator and compose that into the weapon class. In addition
+    to a weapon type, weapons deal damage. This is represented as a WeaponDamage field.
+```
+• Axes
+• Bows
+• Daggers
+• Hammers
+• Staffs
+• Swords
+• Wands
+```
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+3)  Armor
+    Encapsulate these types in a ArmorType enumerator and compose that into the armor class. In addition to
+    an armor type, armor has attributes which provide bonuses to a heroes attributes when equipped. This field is of type
+    HeroAttribute and should be called ArmorAttribute.
+```
+• Cloth
+• Leather
+• Mail
+• Plate
+```
 
-## License
-For open source projects, say how it is licensed.
+4)  Equipment
+    Recall, Heroes have equipment, which is a collection of items. The data structure for this should meet the requirement
+    of: <Slot, Item> as a key value pair. When a new Hero is created, the equipment is initialized to have each slot as an
+    entry with null values to represent empty slots. This should result in 4 entries with keys for each Slot and null values.
+```
+ InvalidWeapon for each Heros (Need to throw a custom InvalidWeaponException)
+• Mages – Staff, Wand
+• Rangers – Bow
+• Rogues – Dagger, Sword
+• Warriors – Axe, Hammer, Sword
+```
+```
+InvalidArmor for each Heros (Need to throw a custom InvalidArmorException)
+• Mages – Cloth
+• Rangers – Leather, Mail
+• Rogues – Leather, Mail
+• Warriors – Mail, Plate
+```
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+
+5) Calculations and display
+   Recall, there are several methods dedicated to calculations for a Hero. These are: Total Attributes and Damage. A hero
+   should also be able to Display themselves.
+```
+ Calculating total attributes
+ 
+A heroes total attributes is simply the sum of their levelling attributes and all the armor attributes from their equipment. 
+This is represented by the calculation:
+* Total = LevelAttributes + (Sum of ArmorAttribute for all Armor in Equipment)
+```
+
+```
+ Calculating a heroes damage
+ 
+• Warrior – damage increased by total strength
+• Mage – damage increased by total intelligence
+• Ranger – damage increased by total dexterity
+• Rogue – damage increased by total dexterity
+A heroes total damage is equal to the equipped weapon damage increased by 1% for every point in their damaging 
+attribute. It can be represented by the formula:
+* Hero damage = WeaponDamage * (1 + DamagingAttribute/100)
+
+```
+
+```
+ Hero display
+ A hero has a public method which returns a string to display their state. 
+ 
+• Name
+• Class
+• Level
+• Total strength
+• Total dexterity
+• Total intelligence
+• Damage
+A good option for this is to use a string builder.
+```
+
+### Unit Testing
+
+Unit testing is to verify the behavior of Heroes. This is how the assignment is “run”. No code needs to be in a main
+method, only a test suite needs to be run. The tests should cover all the public facing methods of the Heroes as well as
+any functionality used in those processes.
+
+
+## Need to fix
+
+Calculating total attributes does not work just now. I notice it when I go throw testings.

@@ -28,11 +28,15 @@ public class AppDemo {
 
     public static void main(String[] args) throws InvalidWeaponException, InvalidLevelException, InvalidArmorException {
 
-        Armor chest = new Armor("Common Plate Chest",1, Slot.BODY, ArmorType.PLATE,new HeroAttribute(1,0,0));
+        Armor chest = new Armor("Common Plate Chest",1, BODY, PLATE,new HeroAttribute(1,0,0));
         System.out.println(chest.getName());
 
-        Weapon axe = new Weapon("Common Axe",1, Slot.WEAPON, AXES,2);
+        Weapon axe = new Weapon("Common Axe",1, WEAPON, AXES,2);
         System.out.println(axe.getName());
+
+        Weapon staff = new Weapon("Common Staff", 1, WEAPON, STAFFS, 0);
+        System.out.println(axe.getName());
+
 
 
 
@@ -44,21 +48,36 @@ public class AppDemo {
         * */
 
         Warrior wa= new Warrior("Chiyo");
+
+        System.out.println(wa.equipWeapon(axe));
+        System.out.println(wa.equipArmor(chest));
+        System.out.println(chest.getSlot());
+        System.out.println(chest.getArmorType());
+
         System.out.println("Da" + 1*(1 + (5 / 100)));
         System.out.println("Damage"+ wa.damage());
         System.out.println(wa.display());
 
 
 
-        System.out.println(wa.equipWeapon(WEAPON,axe));
-        System.out.println(wa.equipArmor(BODY,chest));
 
-        System.out.println(wa.getEquipment());
+
+        System.out.println(wa.getEquipment().get(WEAPON).getName());
 
 
 
 
         Mage m= new Mage("Miwa");
+        System.out.println(m.getEquipment().get(WEAPON));
+        System.out.println(m.equipWeapon(staff));//---> calTotalAttribute can not calculate...:(
+        //System.out.println(m.equipWeapon(axe));
+        //System.out.println(m.equipArmor(chest));
+        System.out.println(chest.getSlot());
+        System.out.println(chest.getArmorType());
+        System.out.println(chest.getName());
+        System.out.println(axe.getName());
+
+
         System.out.println(m.display());
         System.out.println(m.baseHeroAttribute.getIntelligence());
         m.levelUp();
@@ -80,7 +99,8 @@ public class AppDemo {
 
         System.out.println(" Om man skrivit om damage då det fungerar....****************************************");
         System.out.println("Damage:" +m.damage());
-        System.out.println("calTotalAttribute: "+m.calTotalAttribute());
+        //System.out.println("calTotalAttribute: "+m.calTotalAttribute_2());//??????????
+        System.out.println("calTotalAttribute: "+m.calTotalAttribute());//??????????
 
 
         System.out.println(m.display());
