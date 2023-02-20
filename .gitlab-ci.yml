@@ -1,0 +1,17 @@
+image: maven:3.5.3
+
+cache:
+  paths:
+    - .m2/repository/
+    - target/
+
+build:
+  stage: build
+  script:
+    - mvn -f project/pom.xml compile
+
+
+test:
+  stage: test
+  script:
+    - mvn -f project/pom.xml test
