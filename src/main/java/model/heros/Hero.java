@@ -31,6 +31,7 @@ public abstract class Hero {
         this.validArmorTypes = new ArrayList<ArmorType>();
 
         damage();
+        //calTotalAttribute();
     }
 
     public Map<Slot, Item> getEquipment() {
