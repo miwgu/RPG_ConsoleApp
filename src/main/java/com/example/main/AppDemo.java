@@ -53,6 +53,9 @@ public class AppDemo {
             }
         }
 
+        System.out.println("\nHero Created!");
+        System.out.println(hero.display());
+
         /*
         Armor chest = new Armor("Common Plate Chest",1, BODY, PLATE,new HeroAttribute(1,0,0));
         System.out.println(chest.getName());
