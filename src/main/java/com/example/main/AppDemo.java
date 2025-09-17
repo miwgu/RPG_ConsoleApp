@@ -56,6 +56,67 @@ public class AppDemo {
         System.out.println("\nHero Created!");
         System.out.println(hero.display());
 
+        // -- start to choose action!------
+        boolean playing = true;
+        while (playing) {
+            System.out.println("Choose action");
+            System.out.println(
+                    "1. Level up" + "\n" +
+                            "2. Equip Random Weapon" + "\n" +
+                            "3. Equip Random Armor" + "\n" +
+                            "4. Show Stats" + "\n" +
+                            "5. Exit");
+
+            String input = sc.nextLine();
+
+            try {
+                int action = Integer.parseInt(input);
+
+                switch (action) {
+                    case 1:
+                        hero.levelUp();
+                        System.out.println("You leveled up!");
+                        break;
+                    case 2:
+                        Weapon randomWeapon = randomWeapon(random);
+                        try{
+                            hero.equipWeapon(randomWeapon);
+                            System.out.println("Equipped weapon: " + randomWeapon.getName());
+
+                        }catch(Exception e){
+                            System.out.println("Cannot equip: " + e.getMessage());
+                        }
+                        break;
+                    case 3:
+                        Armor randomArmor = randomArmor(random);
+                        try{
+                            hero.equipArmor(randomArmor);
+                            System.out.println("Equipped armor: " + randomArmor.getName());
+
+                        }catch(Exception e){
+                            System.out.println("Cannot equip: " + e.getMessage());
+                        }
+                        break;
+                    case 4:
+                        hero.calTotalAttribute();
+                        System.out.println(hero.display());
+                        break;
+                    case 5:
+                        playing = false;
+                        System.out.println("Exiting game! Bye👋");
+                        break;
+                    default:
+                        System.out.println("Invalid choice.");
+                }
+
+            } catch (NumberFormatException e) {
+                System.out.println("Please enter a number 1-4 !");
+            }
+
+        }
+
+
+
         /*
         Armor chest = new Armor("Common Plate Chest",1, BODY, PLATE,new HeroAttribute(1,0,0));
         System.out.println(chest.getName());
@@ -85,5 +146,21 @@ public class AppDemo {
 */
 
 
+    }
+
+    //for Mage--random weapon
+    private static Weapon randomWeapon(Random random) {
+        String[] names = {"Common Staff", "Apprentice Wand", "Mage's Rod"};
+        int dmg = 1 + random.nextInt(5);
+        return new Weapon(names[random.nextInt(names.length)], 1, WEAPON, STAFFS, dmg);
+    }
+
+    //for Mage--random Armor
+    private static Armor randomArmor(Random random) {
+        String[] names = {"Cloth Hat", "Cloth Robe", "Cloth Pants"};
+        int str = random.nextInt(3);
+        int dex = random.nextInt(3);
+        int intl = random.nextInt(5);
+        return new Armor(names[random.nextInt(names.length)], 1, BODY, CLOTH, new HeroAttribute(str, dex, intl));
     }
 }
