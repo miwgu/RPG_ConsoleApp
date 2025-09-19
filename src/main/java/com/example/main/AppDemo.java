@@ -78,7 +78,7 @@ public class AppDemo {
                         System.out.println("You leveled up!");
                         break;
                     case 2:
-                        Weapon randomWeapon = randomWeapon(random);
+                        Weapon randomWeapon = randomWeapon(random, hero);
                         try{
                             hero.equipWeapon(randomWeapon);
                             System.out.println("Equipped weapon: " + randomWeapon.getName());
@@ -88,7 +88,7 @@ public class AppDemo {
                         }
                         break;
                     case 3:
-                        Armor randomArmor = randomArmor(random);
+                        Armor randomArmor = randomArmor(random, hero);
                         try{
                             hero.equipArmor(randomArmor);
                             System.out.println("Equipped armor: " + randomArmor.getName());
@@ -115,52 +115,43 @@ public class AppDemo {
 
         }
 
-
-
-        /*
-        Armor chest = new Armor("Common Plate Chest",1, BODY, PLATE,new HeroAttribute(1,0,0));
-        System.out.println(chest.getName());
-
-        Weapon axe = new Weapon("Common Axe",1, WEAPON, AXES,2);
-        System.out.println(axe.getName());
-
-        Weapon staff = new Weapon("Common Staff", 1, WEAPON, STAFFS, 1);
-        System.out.println(staff.getName());
-
-
-
-
-
-        Mage m= new Mage("Miwa");
-        System.out.println(m.getEquipment().get(WEAPON));
-        System.out.println(m.equipWeapon(staff));
-        System.out.println(chest.getSlot());
-        System.out.println(chest.getArmorType());
-        System.out.println(m.calTotalAttribute());
-
-        System.out.println(m.display());
-        System.out.println(m.baseHeroAttribute.getIntelligence());
-        m.levelUp();
-        System.out.println("Level: "+m.getLevel());
-        System.out.println(m.display());
-*/
-
-
     }
 
-    //for Mage--random weapon
-    private static Weapon randomWeapon(Random random) {
-        String[] names = {"Common Staff", "Apprentice Wand", "Mage's Rod"};
+
+    private static Weapon randomWeapon(Random random, Hero hero) {
+        WeaponType type = hero.validWeaponTypes.get(random.nextInt(hero.validWeaponTypes.size()));
+        String[] names;
+
+        switch (type) {
+            case AXES -> names = new String[]{"Battle Axe", "Executioner's Axe", "War Axe"};
+            case BOWS -> names = new String[]{"Short Bow", "Long Bow", "Composite Bow"};
+            case DAGGERS -> names = new String[]{"Stiletto", "Shadow Dagger", "Ceremonial Dagger"};
+            case HAMMERS -> names = new String[]{"War Hammer", "Light Hammer", "Thunder Hammer"};
+            case STAFFS -> names = new String[]{"Apprentice Staff", "Wizard's Staff", "Elder Staff"};
+            case SWORDS -> names = new String[]{"Iron Sword", "Steel Sword", "Flame Sword"};
+            case WANDS -> names = new String[]{"Oak Wand", "Crystal Wand", "Arcane Wand"};
+            default -> names = new String[]{"Common Weapon"};
+        }
         int dmg = 1 + random.nextInt(5);
-        return new Weapon(names[random.nextInt(names.length)], 1, WEAPON, STAFFS, dmg);
+        return new Weapon(names[random.nextInt(names.length)], 1, Slot.WEAPON, type, dmg);
     }
 
     //for Mage--random Armor
-    private static Armor randomArmor(Random random) {
-        String[] names = {"Cloth Hat", "Cloth Robe", "Cloth Pants"};
+    private static Armor randomArmor(Random random, Hero hero) {
+        ArmorType type = hero.validArmorTypes.get(random.nextInt(hero.validArmorTypes.size()));
+        String[] names;
+
+        switch (type) {
+            case CLOTH -> names = new String[]{"Cloth Hat", "Cloth Robe", "Cloth Pants"};
+            case LEATHER -> names = new String[]{"Leather Hood", "Leather Vest", "Leather Pants"};
+            case MAIL -> names = new String[]{"Mail Coif", "Mail Hauberk", "Mail Leggings"};
+            case PLATE -> names = new String[]{"Plate Helmet", "Plate Chestplate", "Plate Leggings"};
+            default -> names = new String[]{"Common Armor"};
+        }
+
         int str = random.nextInt(3);
         int dex = random.nextInt(3);
         int intl = random.nextInt(5);
-        return new Armor(names[random.nextInt(names.length)], 1, BODY, CLOTH, new HeroAttribute(str, dex, intl));
+        return new Armor(names[random.nextInt(names.length)], 1, Slot.BODY, type, new HeroAttribute(str, dex, intl));
     }
 }
