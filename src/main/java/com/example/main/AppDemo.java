@@ -132,11 +132,14 @@ public class AppDemo {
             case WANDS -> names = new String[]{"Oak Wand", "Crystal Wand", "Arcane Wand"};
             default -> names = new String[]{"Common Weapon"};
         }
-        int dmg = 1 + random.nextInt(5);
+        // level based damage
+        int baseDmg = hero.getLevel();
+        int bonus = random.nextInt(3);
+        int dmg = baseDmg + bonus;
         return new Weapon(names[random.nextInt(names.length)], 1, Slot.WEAPON, type, dmg);
     }
 
-    //for Mage--random Armor
+
     private static Armor randomArmor(Random random, Hero hero) {
         ArmorType type = hero.validArmorTypes.get(random.nextInt(hero.validArmorTypes.size()));
         String[] names;
@@ -149,9 +152,10 @@ public class AppDemo {
             default -> names = new String[]{"Common Armor"};
         }
 
-        int str = random.nextInt(3);
-        int dex = random.nextInt(3);
-        int intl = random.nextInt(5);
+        // level based status
+        int str = hero.getLevel()/2 + random.nextInt(3);
+        int dex = hero.getLevel()/2 + random.nextInt(3);
+        int intl = hero.getLevel()/2 + random.nextInt(3);
         return new Armor(names[random.nextInt(names.length)], 1, Slot.BODY, type, new HeroAttribute(str, dex, intl));
     }
 }
