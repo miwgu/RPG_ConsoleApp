@@ -23,5 +23,10 @@ public class Weapon extends Item {
         return weaponDamage;
     }
 
+    @Override
+    public String toString (){
+        return "Weapon{name='"+ getName() + "', type=" + weaponType + ", damage=" + weaponDamage + ", requiredLevel=" + getRequiredLevel() + "}";
+    }
+
 
 }

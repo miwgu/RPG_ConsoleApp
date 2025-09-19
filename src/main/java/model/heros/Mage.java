@@ -15,11 +15,16 @@ public class Mage extends Hero{
     @Override
     public HeroAttribute levelUp() {
         this.gainLevel();
-        return this.totalHeroAttribute.levelAttributes(new HeroAttribute(1,1,5));
+        this.baseHeroAttribute.levelAttributes(new HeroAttribute(1,1,5));
+        this.calTotalAttribute();
+        return this.totalHeroAttribute;
     }
 
     @Override
-    public double damage() {
+    protected int getDamagingAttribute (){
+        return this.totalHeroAttribute.getIntelligence();
+    }
+    /*public double damage() {
 
         double weaponDamage =1;
         Weapon weapon = (Weapon) super.getEquipment().get(Slot.WEAPON);
@@ -29,7 +34,7 @@ public class Mage extends Hero{
         }
 
         return  weaponDamage * (1+ this.totalHeroAttribute.getIntelligence()/100);
-    }
+    }*/
 
 
 }

@@ -20,13 +20,18 @@ public class Rogue extends Hero {
 
     @Override
     public HeroAttribute levelUp() {
-        this.level++;
-        this.totalHeroAttribute.levelAttributes( new HeroAttribute(1,4,1));
-        return null;
+        this.gainLevel();
+        this.baseHeroAttribute.levelAttributes( new HeroAttribute(1,4,1));
+        this.calTotalAttribute();
+        return this.totalHeroAttribute;
     }
 
     @Override
-    public double damage() {
+    protected int getDamagingAttribute() {
+        return this.totalHeroAttribute.getDexterity();
+    }
+
+   /* public double damage() {
 
         double weaponDamage =1;
         Weapon weapon = (Weapon) super.getEquipment().get(Slot.WEAPON);
@@ -36,6 +41,6 @@ public class Rogue extends Hero {
         }
 
         return weaponDamage * (1+ this.totalHeroAttribute.getDexterity()/100);
-    }
+    }*/
 
 }

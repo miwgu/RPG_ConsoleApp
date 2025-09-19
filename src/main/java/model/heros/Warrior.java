@@ -21,13 +21,17 @@ public class Warrior extends Hero {
 
     @Override
     public HeroAttribute levelUp() {
-        this.level++;
-        this.totalHeroAttribute.levelAttributes( new HeroAttribute(3,2,1));
-        return null;
+        this.gainLevel();
+        this.baseHeroAttribute.levelAttributes( new HeroAttribute(3,2,1));
+        this.calTotalAttribute();
+        return this.totalHeroAttribute;
     }
 
     @Override
-    public double damage() {
+    protected int getDamagingAttribute(){
+        return this.totalHeroAttribute.getStrength();
+    }
+   /* public double damage() {
 
         double weaponDamage =1;
         Weapon weapon = (Weapon) super.getEquipment().get(Slot.WEAPON);
@@ -37,6 +41,6 @@ public class Warrior extends Hero {
         }
 
         return weaponDamage * (1+ this.totalHeroAttribute.getStrength()/100);
-    }
+    }*/
 
 }

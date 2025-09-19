@@ -24,4 +24,12 @@ public class Armor extends Item {
         return armorAttribute;
     }
 
+    @Override
+    public String toString() {
+        return "Armor{name='" + getName() +
+                "', slot=" + getSlot() +
+                ", type=" + armorType +
+                ", attributes=" + armorAttribute + "}";
+    }
+
 }

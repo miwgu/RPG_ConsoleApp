@@ -40,7 +40,7 @@ public abstract class Hero {
 
 
     public Map<Slot, Item> getInitialEquipment() {
-        Map<Slot,Item> createEquipment = new HashMap<Slot,Item>();
+        Map<Slot,Item> createEquipment = new LinkedHashMap<Slot,Item>();// This display equipments in insertion order
         createEquipment.put(Slot.WEAPON,null);
         createEquipment.put(Slot.HEAD,null);
         createEquipment.put(Slot.BODY,null);
@@ -119,38 +119,58 @@ public abstract class Hero {
         }
     }
 
+    protected abstract  int getDamagingAttribute();
 
-    public abstract double damage();
+    public double damage(){
+            double weaponDamage =1;
+            Weapon weapon = (Weapon) this.getEquipment().get(Slot.WEAPON);
+            if (weapon != null) {
+                weaponDamage = weapon.getWeaponDamage();
+             }
+        return  weaponDamage * (1+ getDamagingAttribute() /100.0);
+}
 
 
-    public int calTotalAttribute () { // Total = LevelAttributes + (Sum of ArmorAttribute for all Armor in Equipment)
-         this.totalHeroAttribute = new HeroAttribute(0,0,0);
-         int sum_totalLevelAttributes=this.totalHeroAttribute.totalLevelAttributes(new HeroAttribute(baseHeroAttribute.getDexterity(), baseHeroAttribute.getStrength(), baseHeroAttribute.getIntelligence()));
+    public HeroAttribute calTotalAttribute () { // Total = LevelAttributes + (Sum of ArmorAttribute for all Armor in Equipment)
+         //this.totalHeroAttribute = new HeroAttribute(0,0,0);
+         //int sum_totalLevelAttributes=this.totalHeroAttribute.totalLevelAttributes(new HeroAttribute(baseHeroAttribute.getDexterity(), baseHeroAttribute.getStrength(), baseHeroAttribute.getIntelligence()));
+        //
+        this.totalHeroAttribute = new HeroAttribute(
+                baseHeroAttribute.getStrength(),
+                baseHeroAttribute.getDexterity(),
+                baseHeroAttribute.getIntelligence()
+        );
 
-        int calArmorAttributes = getEquipment().values()
-                                        .stream().filter(Armor.class::isInstance)
-                                        .map(Armor.class::cast)
-                                        .mapToInt
-                                                (armor -> (armor.getArmorAttribute().getStrength()
-                                                        +  armor.getArmorAttribute().getDexterity()
-                                                        +  armor.getArmorAttribute().getIntelligence()))
-                                                           .reduce(0, Integer::sum);
+        getEquipment().values()
+                .stream().filter(Armor.class::isInstance)
+                .map(Armor.class::cast)
+                .forEach
+                        (armor -> {
+                                this.totalHeroAttribute.levelAttributes(armor.getArmorAttribute());
+                        });
 
-        return sum_totalLevelAttributes + calArmorAttributes;
+        return this.totalHeroAttribute;
+        //return sum_totalLevelAttributes + calArmorAttributes;
     }
 
     public StringBuilder display() {
+
+        this.calTotalAttribute();//update total attribute (base+Equipment Modifier)
         StringBuilder sb = new StringBuilder();
-        return sb.append("----------------------------------------\n")
+        sb.append("----------------------------------------\n")
                 .append("Name: " + this.getName()+"\n")
                 .append("Class: " + this.getHeroClass()+"\n")
                 .append("Level: " + this.getLevel()+"\n")
-                .append("Total strength: " + this.totalHeroAttribute.getStrength()+"\n")
-                .append("Total dexterity: " + this.totalHeroAttribute.getDexterity()+ "\n")
-                .append("Total intelligence: " + this.totalHeroAttribute.getIntelligence()+ "\n")
-                .append("Damage: " + this.damage()+ "\n")
-                .append("----------------------------------------\n");
+                .append("Total attribute: " + this.totalHeroAttribute +"\n")
+                .append("\uD83D\uDCA5" +"Damage: " + this.damage()+ "\n");
+
+        this.getEquipment().forEach((slot, item) -> {
+            sb.append("🌟" + slot + ": " + (item != null ? item : "None") + "\n");
+        });
+                sb.append("----------------------------------------\n");
+        return sb;
     }
+
 
 
 }
